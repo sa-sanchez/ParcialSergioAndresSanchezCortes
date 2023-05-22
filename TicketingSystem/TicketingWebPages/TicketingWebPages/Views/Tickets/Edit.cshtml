@@ -4,8 +4,20 @@
 
 <form asp-controller="Tickets" asp-action="Edit" method="post">
 
-    <label for="id">Ticket ID:</label>
-    <input type="text" name="id" id="id">
-    <button type="submit">Scan</button>
+    <div class="form-group">
+        <label asp-for="Id" class="control-label"></label>
+        <input asp-for="Id" class="form-control" />
+        <span asp-validation-for="Id" class="text-danger"></span>
+    </div>
 
+    <div class="form-group">
+        <label asp-for="EntranceGate" class="control-label"></label>
+        <input asp-for="EntranceGate" class="form-control" />
+        <span asp-validation-for="EntranceGate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-outline-primary" />
+        <a asp-action="Index" class="btn btn-outline-success">Back</a>
+    </div>
 </form>

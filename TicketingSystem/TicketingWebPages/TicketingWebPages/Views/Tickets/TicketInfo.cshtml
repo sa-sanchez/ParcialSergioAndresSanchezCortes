@@ -1,0 +1,18 @@
+﻿@model TicketingSystem.DAL.Entities.Ticket
+
+<div>
+    <h4>Ticket already Used</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UseDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EntranceGate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index" class="btn btn-outline-success">Back</a>
+</div>
+
