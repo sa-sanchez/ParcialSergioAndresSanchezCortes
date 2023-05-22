@@ -73,13 +73,6 @@ namespace TicketingWebPages.Controllers
             {
                 return View("Error", ex);
             }
-
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Details()
-        {
-            return View();
         }
     }
 }
