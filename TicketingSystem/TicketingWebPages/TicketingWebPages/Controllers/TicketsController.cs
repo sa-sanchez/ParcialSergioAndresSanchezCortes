@@ -35,7 +35,7 @@ namespace TicketingWebPages.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("TicketInfo");
+                    return View(ticket);
                 }
             }
             catch
@@ -76,21 +76,10 @@ namespace TicketingWebPages.Controllers
 
         }
 
-        public async Task<IActionResult> TicketInfo(Guid? id)
+        [HttpGet]
+        public async Task<IActionResult> Details()
         {
-            try
-            {
-                var url = String.Format("https://localhost:7255/api/Tickets/ScanTicket/{0}", id);
-                var json = await _httpClient.CreateClient().GetStringAsync(url);
-                Ticket ticket = JsonConvert.DeserializeObject<Ticket>(json);
-                return View(ticket);
-            }
-            catch (Exception ex)
-            {
-                return View("Error", ex);
-            }
-
+            return View();
         }
-
     }
 }
