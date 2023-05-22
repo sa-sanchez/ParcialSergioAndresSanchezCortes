@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.Metrics;
+using System.Net;
 using TicketingSystem.DAL;
 using TicketingSystem.DAL.Entities;
 
@@ -18,13 +20,53 @@ namespace TicketingSystem.Controllers
         }
 
         [HttpGet, ActionName("Get")]
-        [Route("Get/{id}")]
+        [Route("ScanTicket/{id}")]
 
-        public async Task<ActionResult<Ticket>> GetTicketById(Guid? id)
+        public async Task<ActionResult<Ticket>> ScanTicket(Guid? id)
         {
             var ticket = await _context.Tickets.FirstOrDefaultAsync(x => x.Id == id);
 
-            if (ticket == null) return NotFound();
+            if (ticket == null)
+            {
+                return NotFound("Ticket is not Valid");
+            }
+            else if (ticket.isUsed == true)
+            {
+                var response = new
+                {                    
+                    useDate = ticket.UseDate,
+                    entranceGate = ticket.EntranceGate
+                };
+
+                return Ok(response);
+            }
+
+            return Ok(ticket);
+        }
+
+        [HttpPut, ActionName("Edit")]
+        [Route("EditTicket/{id}")]
+        public async Task<ActionResult<Ticket>> EditTicket(Guid? id, Ticket ticket)
+        {
+            try
+            {
+                if (id != ticket.Id) return NotFound("Country not found");
+
+                ticket.UseDate = DateTime.Now;
+                ticket.isUsed = true;
+
+                _context.Tickets.Update(ticket);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                if (dbUpdateException.InnerException.Message.Contains("duplicate"))
+                    return Conflict("Ticket update error");
+            }
+            catch (Exception ex)
+            {
+                return Conflict(ex.Message);
+            }
 
             return Ok(ticket);
         }
