@@ -28,12 +28,12 @@ namespace TicketingSystem.Controllers
 
             if (ticket == null)
             {
-                return NotFound("Ticket is not Valid");
+                return NotFound("Invalid Ticket");
             }
             else if (ticket.isUsed == true)
             {
                 var response = new
-                {                    
+                {         
                     useDate = ticket.UseDate,
                     entranceGate = ticket.EntranceGate
                 };

@@ -1,10 +1,8 @@
 ﻿@model TicketingSystem.DAL.Entities.Ticket
 
-@{
-    ViewData["Title"] = "Ticket Scanning";
-}
+<h1>Valid Ticket, you can enter to the concert</h1>
 
-<form asp-controller="Tickets" asp-action="GetTicket" method="get">
+<form asp-controller="Tickets" asp-action="Edit" method="post">
 
     <label for="id">Ticket ID:</label>
     <input type="text" name="id" id="id">
