@@ -50,7 +50,7 @@ namespace TicketingSystem.Controllers
         {
             try
             {
-                if (id != ticket.Id) return NotFound("Country not found");
+                if (id != ticket.Id) return NotFound("Ticket not found");
 
                 ticket.UseDate = DateTime.Now;
                 ticket.isUsed = true;
